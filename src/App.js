@@ -1,10 +1,10 @@
-import Dashboard from "./pages/dashboard";
+import Layout from "./components/layout";
 
 function App() {
   return (
-    <>
-      <Dashboard />
-    </>
+    <div className="flex min-h-screen">
+      <Layout />
+    </div>
   );
 }
 
