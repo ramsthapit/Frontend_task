@@ -10,8 +10,8 @@ const Header = () => {
   }
 
   return (
-    <header className="flex items-end justify-end pr-4 sticky top-0 bg-white border-gray-200 dark:border-gray-800 dark:bg-gray-900">
-      <div className="flex flex-col items-center justify-between grow lg:flex-row lg:px-6">
+    <header className="flex w-full h-full items-end justify-end pr-4 sticky top-0 bg-white border-gray-200 dark:border-gray-800 dark:bg-gray-900">
+      <div className="flex flex-col h-full items-center justify-between grow lg:flex-row lg:px-6">
         
         <div className={"flex items-center justify-between w-full gap-4 px-5 py-4 lg:flex shadow-theme-md lg:justify-end lg:px-0 lg:shadow-none"}>
           <h1 className="text-lg font-semibold text-gray-900 dark:text-white">
