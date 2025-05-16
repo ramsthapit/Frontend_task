@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
-import { FaAngleDown, FaAngleUp, FaUser } from 'react-icons/fa'
+import { FaAngleDown, FaAngleUp, FaEdit, FaSignOutAlt, FaUser, FaUserEdit } from 'react-icons/fa'
 
 const Header = () => {
 
   const [toggle, setToggle] = useState(false)
   const handleClick = () => { 
     setToggle(!toggle)
-    console.log(toggle)
+    // console.log(toggle)
+  }
+
+  const handleProfile = () => { 
+    // console.log("Profile clicked");
+    setToggle(false)
   }
 
   return (
@@ -25,6 +30,21 @@ const Header = () => {
           </button>
         </div>
       </div>
+      {toggle &&
+        <div className='fixed top-20 right-5 z-100 w-40 bg-white p-3 border-gray-500 rounded-md shadow-md'>
+          <ul className='flex flex-col text-xl'>
+            <li onClick={handleProfile} className='flex gap-3 items-center py-2 px-2 space-x-4 hover:rounded hover:cursor-pointer hover:bg-blue-600 hover:text-white'>
+              <FaUser /> Profile
+            </li> 
+            <li onClick={handleProfile} className='flex gap-3 items-center py-2 px-2 space-x-4 hover:rounded hover:cursor-pointer hover:bg-blue-600 hover:text-white'>
+              <FaEdit /> Edit
+            </li> 
+            <li onClick={handleProfile} className='flex gap-3 items-center py-2 px-2 space-x-4 hover:rounded hover:cursor-pointer hover:bg-blue-600 hover:text-white border-t-2'>
+              <FaSignOutAlt /> Sign out
+            </li> 
+          </ul>
+        </div>
+      }
     </header>
   )
 }

@@ -13,7 +13,7 @@ const Dashboard = () => {
   const [totalItems, setTotalItems] = useState(0)
   const [selectedCategory, setSelectedCategory] = useState("")
 
-  const Category = [
+  const TableHeading = [
     { id: 1, name: 'S.N.' },
     { id: 1, name: 'Product name' },
     { id: 2, name: 'Category' },
@@ -226,7 +226,6 @@ const Dashboard = () => {
     setLoading(true)
     const baseUrl = selectedCategory==="" ?
       'https://dummyjson.com/products' :
-      // 'https://dummyjson.com/products' 
       'https://dummyjson.com/products/category/' + selectedCategory
     
     fetch(`${baseUrl}?limit=10&skip=${(currentPage-1)*10}&select=title,category,rating,price`)
@@ -271,7 +270,7 @@ const Dashboard = () => {
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                  {Category.map((item, index) => (
+                  {TableHeading.map((item, index) => (
                     <th key={index} scope="col" className="px-3 py-3 text-gray-500">
                       {item.name}
                     </th>))
