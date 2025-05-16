@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import {useState} from 'react'
 import { FaTachometerAlt, FaShoppingCart, FaUsers, FaUser, FaBox, FaCog } from 'react-icons/fa';
 import { Link } from 'react-router';
 import { FaBars, FaTimes } from 'react-icons/fa';
@@ -7,10 +7,10 @@ const Sidebar = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const data = [
 		{ id: 1, name: 'Dashboard', icon: <FaTachometerAlt />, link: '/' },
-		{ id: 2, name: 'Data', icon: <FaShoppingCart />, link: '/Data' },
+		{ id: 2, name: 'Data', icon: <FaBox />, link: '/Data' },
 		{ id: 3, name: 'Customers', icon: <FaUsers />, link: '/customers' },
-		{ id: 4, name: 'Users', icon: <FaUser />, link: '/users' },
-		{ id: 5, name: 'Products', icon: <FaBox />, link: '/products' },
+		// { id: 4, name: 'Users', icon: <FaUser />, link: '/users' },
+		// { id: 5, name: 'Store', icon: <FaShoppingCart />, link: '/store' },
 		{ id: 6, name: 'Settings', icon: <FaCog />, link: '/settings' },
 		
 	]
