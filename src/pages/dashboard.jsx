@@ -1,16 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaEdit, FaTrash } from 'react-icons/fa'
 import Pagination from '../components/Pagination'
 // https://dummyjson.com/docs/products#products-limit_skip
+// https://dummyjson.com/products?limit=10&skip=20&select=title,category,rating,price
 const Dashboard = () => {
-    const Category = [
-        { id: 1, name: 'S.N.' },
-        { id: 1, name: 'Product name' },
-        { id: 2, name: 'Category' },
-        { id: 3, name: 'Rating' },
-        { id: 4, name: 'Price' },
-        { id: 5, name: '' },
-    ]
+  
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemNo, setItemNo] = useState(1)
+  const Category = [
+    { id: 1, name: 'S.N.' },
+    { id: 1, name: 'Product name' },
+    { id: 2, name: 'Category' },
+    { id: 3, name: 'Rating' },
+    { id: 4, name: 'Price' },
+    { id: 5, name: '' },
+  ]
 
   const Data = {
     Products: [
@@ -89,6 +93,9 @@ const Dashboard = () => {
     "skip": 20,
     "limit": 10
   }
+  useEffect(() => { 
+    setItemNo(Data.Products[0].id)
+  }, [currentPage])
 
   return (
     <main className="flex w-full h-full bg-gray-100 p-5"> 
@@ -107,7 +114,7 @@ const Dashboard = () => {
                 </thead>
                 <tbody>
                   {Data.Products.map((item) => (
-                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">  
+                    <tr key={item.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">  
                       <td className="pl-6">
                           {item.id}
                       </td>
@@ -135,7 +142,12 @@ const Dashboard = () => {
                   ))}       
               </tbody>
           </table>
-          <Pagination />
+          <Pagination
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            totalPage={Data.total}
+            itemNo={itemNo}
+          />
       </div>
       
       </div>
