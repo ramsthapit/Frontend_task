@@ -1,42 +1,43 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { FaTachometerAlt, FaShoppingCart, FaUsers, FaUser, FaBox, FaCog } from 'react-icons/fa';
+import { Link } from 'react-router';
+import { FaBars, FaTimes } from 'react-icons/fa';
+
 const Sidebar = () => {
-  return (
-    <div className="flex flex-col w-full bg-gray-100 text-gray-900 h-full px-4 border-r border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white">
-			<h1 className='text-2xl font-bold hidden md:block mt-4 text-center italic'>Ram Sthapit</h1>
+	const [isOpen, setIsOpen] = useState(false);
+	const data = [
+		{ id: 1, name: 'Dashboard', icon: <FaTachometerAlt />, link: '/' },
+		{ id: 2, name: 'Data', icon: <FaShoppingCart />, link: '/Data' },
+		{ id: 3, name: 'Customers', icon: <FaUsers />, link: '/customers' },
+		{ id: 4, name: 'Users', icon: <FaUser />, link: '/users' },
+		{ id: 5, name: 'Products', icon: <FaBox />, link: '/products' },
+		{ id: 6, name: 'Settings', icon: <FaCog />, link: '/settings' },
+		
+	]
+	return (
+		
+		<div className="flex flex-col md:w-60 bg-gray-100 text-gray-900 h-full px-4 border-r border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white">
+			<div className="md:hidden flex gap-2 items-center mt-6 bg-gray-100 dark:bg-gray-900">
+				
+				<h1 className={`flex text-xl font-bold ${isOpen ? "md:block": "hidden"} text-center italic`}>Hamro Saman</h1>
+				<button onClick={() => setIsOpen(!isOpen)} className="flex text-2xl p-2">
+          {isOpen ? <FaTimes /> : <FaBars />}
+        </button>
+      </div>
+			<h1 className='text-2xl font-bold hidden md:block mt-6 text-center italic'>Hamro Saman</h1>
 			<ul className='flex flex-col mt-5 text-xl'>
-				<li className='flex items-center py-3 px-2 space-x-4 hover:rounded hover:cursor-pointer 
-        hover:bg-blue-600 hover:text-white'>
-					<FaTachometerAlt />
-					<span className='hidden md:inline'>Dashboard</span>
-				</li>
-				<li className="flex items-center py-3 px-2 space-x-4 hover:rounded hover:cursor-pointer 
-        hover:text-white hover:bg-blue-600">
-					<FaShoppingCart />
-					<span className="hidden md:inline ">Orders</span>
-				</li>
-				<li className="flex items-center py-3 px-2 space-x-4 hover:rounded hover:cursor-pointer 
-        hover:text-white hover:bg-blue-600">
-					<FaUsers />
-					<span className="hidden md:inline ">Customers</span>
-				</li>
-				<li className="flex items-center py-3 px-2 space-x-4 hover:rounded hover:cursor-pointer 
-        hover:text-white hover:bg-blue-600">
-					<FaUser />
-					<span className="hidden md:inline ">Users</span>
-				</li>
-				<li className="flex items-center py-3 px-2 space-x-4 hover:rounded hover:cursor-pointer 
-        hover:text-white hover:bg-blue-600">
-					<FaBox />
-					<span className="hidden md:inline ">Products</span>
-				</li>
-				<li className="flex items-center py-3 px-2 space-x-4 hover:rounded hover:cursor-pointer 
-        hover:text-white hover:bg-blue-600">
-					<FaCog />
-					<span className="hidden md:inline ">Settings</span>
-				</li>
+				{data.map((item, index) => (
+					<Link to={item.link} key={index} onClick={() => setIsOpen(false)}>
+						<li className='flex items-center py-3 px-2 space-x-4 hover:rounded hover:cursor-pointer hover:bg-blue-600 hover:text-white'>
+							{item.icon}
+							<span className={`${!isOpen && "hidden"} md:inline`}>{item.name}</span>
+						</li>
+					</Link>
+				))}
+				
 			</ul>
 		</div>
+		
   )
 }
 
