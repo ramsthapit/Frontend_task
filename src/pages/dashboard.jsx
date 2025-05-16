@@ -8,10 +8,9 @@ import Loader from '../components/Loader'
 const Dashboard = () => {
   
   const [currentPage, setCurrentPage] = useState(1)
-  const [itemNo, setItemNo] = useState(1)
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
-  const [totalPage, setTotalPage] = useState(0)
+  const [totalItems, setTotalItems] = useState(0)
   const [selectedCategory, setSelectedCategory] = useState("")
 
   const Category = [
@@ -145,83 +144,83 @@ const Dashboard = () => {
         "url": "https://dummyjson.com/products/category/womens-watches"
     }
 ]
-  // const Data = {
-  //   Products: [
-  //     {
-  //       "id": 21,
-  //       "title": "Cucumber",
-  //       "category": "groceries",
-  //       "rating": 4.07,
-  //       "price": 1.49
-  //     },
-  //     {
-  //       "id": 22,
-  //       "title": "Dog Food",
-  //       "category": "groceries",
-  //       "rating": 4.55,
-  //       "price": 10.99
-  //     },
-  //     {
-  //       "id": 23,
-  //       "title": "Eggs",
-  //       "category": "groceries",
-  //       "rating": 2.53,
-  //       "price": 2.99
-  //     },
-  //     {
-  //       "id": 24,
-  //       "title": "Fish Steak",
-  //       "category": "groceries",
-  //       "rating": 3.78,
-  //       "price": 14.99
-  //     },
-  //     {
-  //       "id": 25,
-  //       "title": "Green Bell Pepper",
-  //       "category": "groceries",
-  //       "rating": 3.25,
-  //       "price": 1.29
-  //     },
-  //     {
-  //       "id": 26,
-  //       "title": "Green Chili Pepper",
-  //       "category": "groceries",
-  //       "rating": 3.66,
-  //       "price": 0.99
-  //     },
-  //     {
-  //       "id": 27,
-  //       "title": "Honey Jar",
-  //       "category": "groceries",
-  //       "rating": 3.97,
-  //       "price": 6.99
-  //     },
-  //     {
-  //       "id": 28,
-  //       "title": "Ice Cream",
-  //       "category": "groceries",
-  //       "rating": 3.39,
-  //       "price": 5.49
-  //     },
-  //     {
-  //       "id": 29,
-  //       "title": "Juice",
-  //       "category": "groceries",
-  //       "rating": 3.94,
-  //       "price": 3.99
-  //     },
-  //     {
-  //       "id": 30,
-  //       "title": "Kiwi",
-  //       "category": "groceries",
-  //       "rating": 4.93,
-  //       "price": 2.49
-  //     }
-  //   ],
-  //   "total": 194,
-  //   "skip": 20,
-  //   "limit": 10
-  // }
+  const Data = {
+    Products: [
+      {
+        "id": 21,
+        "title": "Cucumber",
+        "category": "groceries",
+        "rating": 4.07,
+        "price": 1.49
+      },
+      {
+        "id": 22,
+        "title": "Dog Food",
+        "category": "groceries",
+        "rating": 4.55,
+        "price": 10.99
+      },
+      {
+        "id": 23,
+        "title": "Eggs",
+        "category": "groceries",
+        "rating": 2.53,
+        "price": 2.99
+      },
+      {
+        "id": 24,
+        "title": "Fish Steak",
+        "category": "groceries",
+        "rating": 3.78,
+        "price": 14.99
+      },
+      {
+        "id": 25,
+        "title": "Green Bell Pepper",
+        "category": "groceries",
+        "rating": 3.25,
+        "price": 1.29
+      },
+      {
+        "id": 26,
+        "title": "Green Chili Pepper",
+        "category": "groceries",
+        "rating": 3.66,
+        "price": 0.99
+      },
+      {
+        "id": 27,
+        "title": "Honey Jar",
+        "category": "groceries",
+        "rating": 3.97,
+        "price": 6.99
+      },
+      {
+        "id": 28,
+        "title": "Ice Cream",
+        "category": "groceries",
+        "rating": 3.39,
+        "price": 5.49
+      },
+      {
+        "id": 29,
+        "title": "Juice",
+        "category": "groceries",
+        "rating": 3.94,
+        "price": 3.99
+      },
+      {
+        "id": 30,
+        "title": "Kiwi",
+        "category": "groceries",
+        "rating": 4.93,
+        "price": 2.49
+      }
+    ],
+    "total": 194,
+    "skip": 20,
+    "limit": 10
+  }
 
   useEffect(() => { 
     setLoading(true)
@@ -234,8 +233,7 @@ const Dashboard = () => {
       .then(res => res.json())
       .then(data => {
         setProducts(data.products);
-        setItemNo(data.products[0].id)
-        setTotalPage(data.total);
+        setTotalItems(data.total);
         setLoading(false);
       })
       .catch(err => {
@@ -313,8 +311,8 @@ const Dashboard = () => {
         <Pagination
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
-          totalPage={totalPage}
-          itemNo={itemNo}
+          totalItems={totalItems}
+          itemsPerPage={10}
         />
     </div>
       
