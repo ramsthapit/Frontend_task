@@ -12,6 +12,7 @@ const Dashboard = () => {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [totalPage, setTotalPage] = useState(0)
+  const [selectedCategory, setSelectedCategory] = useState("")
 
   const Category = [
     { id: 1, name: 'S.N.' },
@@ -22,6 +23,128 @@ const Dashboard = () => {
     { id: 5, name: '' },
   ]
 
+  const categories = [
+    {
+        "slug": "beauty",
+        "name": "Beauty",
+        "url": "https://dummyjson.com/products/category/beauty"
+    },
+    {
+        "slug": "fragrances",
+        "name": "Fragrances",
+        "url": "https://dummyjson.com/products/category/fragrances"
+    },
+    {
+        "slug": "furniture",
+        "name": "Furniture",
+        "url": "https://dummyjson.com/products/category/furniture"
+    },
+    {
+        "slug": "groceries",
+        "name": "Groceries",
+        "url": "https://dummyjson.com/products/category/groceries"
+    },
+    {
+        "slug": "home-decoration",
+        "name": "Home Decoration",
+        "url": "https://dummyjson.com/products/category/home-decoration"
+    },
+    {
+        "slug": "kitchen-accessories",
+        "name": "Kitchen Accessories",
+        "url": "https://dummyjson.com/products/category/kitchen-accessories"
+    },
+    {
+        "slug": "laptops",
+        "name": "Laptops",
+        "url": "https://dummyjson.com/products/category/laptops"
+    },
+    {
+        "slug": "mens-shirts",
+        "name": "Mens Shirts",
+        "url": "https://dummyjson.com/products/category/mens-shirts"
+    },
+    {
+        "slug": "mens-shoes",
+        "name": "Mens Shoes",
+        "url": "https://dummyjson.com/products/category/mens-shoes"
+    },
+    {
+        "slug": "mens-watches",
+        "name": "Mens Watches",
+        "url": "https://dummyjson.com/products/category/mens-watches"
+    },
+    {
+        "slug": "mobile-accessories",
+        "name": "Mobile Accessories",
+        "url": "https://dummyjson.com/products/category/mobile-accessories"
+    },
+    {
+        "slug": "motorcycle",
+        "name": "Motorcycle",
+        "url": "https://dummyjson.com/products/category/motorcycle"
+    },
+    {
+        "slug": "skin-care",
+        "name": "Skin Care",
+        "url": "https://dummyjson.com/products/category/skin-care"
+    },
+    {
+        "slug": "smartphones",
+        "name": "Smartphones",
+        "url": "https://dummyjson.com/products/category/smartphones"
+    },
+    {
+        "slug": "sports-accessories",
+        "name": "Sports Accessories",
+        "url": "https://dummyjson.com/products/category/sports-accessories"
+    },
+    {
+        "slug": "sunglasses",
+        "name": "Sunglasses",
+        "url": "https://dummyjson.com/products/category/sunglasses"
+    },
+    {
+        "slug": "tablets",
+        "name": "Tablets",
+        "url": "https://dummyjson.com/products/category/tablets"
+    },
+    {
+        "slug": "tops",
+        "name": "Tops",
+        "url": "https://dummyjson.com/products/category/tops"
+    },
+    {
+        "slug": "vehicle",
+        "name": "Vehicle",
+        "url": "https://dummyjson.com/products/category/vehicle"
+    },
+    {
+        "slug": "womens-bags",
+        "name": "Womens Bags",
+        "url": "https://dummyjson.com/products/category/womens-bags"
+    },
+    {
+        "slug": "womens-dresses",
+        "name": "Womens Dresses",
+        "url": "https://dummyjson.com/products/category/womens-dresses"
+    },
+    {
+        "slug": "womens-jewellery",
+        "name": "Womens Jewellery",
+        "url": "https://dummyjson.com/products/category/womens-jewellery"
+    },
+    {
+        "slug": "womens-shoes",
+        "name": "Womens Shoes",
+        "url": "https://dummyjson.com/products/category/womens-shoes"
+    },
+    {
+        "slug": "womens-watches",
+        "name": "Womens Watches",
+        "url": "https://dummyjson.com/products/category/womens-watches"
+    }
+]
   // const Data = {
   //   Products: [
   //     {
@@ -99,8 +222,15 @@ const Dashboard = () => {
   //   "skip": 20,
   //   "limit": 10
   // }
+
   useEffect(() => { 
-    fetch(`https://dummyjson.com/products?limit=10&skip=${(currentPage-1)*10}&select=title,category,rating,price`)
+    setLoading(true)
+    const baseUrl = selectedCategory==="" ?
+      'https://dummyjson.com/products' :
+      // 'https://dummyjson.com/products' 
+      'https://dummyjson.com/products/category/' + selectedCategory
+    
+    fetch(`${baseUrl}?limit=10&skip=${(currentPage-1)*10}&select=title,category,rating,price`)
       .then(res => res.json())
       .then(data => {
         setProducts(data.products);
@@ -113,14 +243,33 @@ const Dashboard = () => {
         setLoading(false);
       });
     
-  }, [currentPage])
+    
+  }, [currentPage, selectedCategory])
   
+  const handleCategoryChange = (e) => {
+    setSelectedCategory(e.target.value)
+    setCurrentPage(1)
+  }
 
   return (
     <main className="flex flex-col min-h-screen bg-gray-100 p-3 md:p-9"> 
       <h1 className="text-2xl font-bold">Dashboard</h1>
       <div className="flex flex-col w-full my-5 overflow-auto">
-      {loading && <Loader />}
+        {loading && <Loader />}
+        <select
+          id="countries"
+          value={selectedCategory}
+          onChange={handleCategoryChange}
+          className="block w-full sm:w-1/2 md:w-1/4  p-2.5 mb-3 items-end bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        >
+          <option value="">Select Category</option>
+          {categories.map((item, index) => (
+            <option key={index} value={item.slug}>
+              {item.name}
+            </option>
+          ))}
+        </select>
+
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>

@@ -16,14 +16,15 @@ const Sidebar = () => {
 	]
 	return (
 		
-		<div className="flex flex-col bg-gray-100 text-gray-900 h-full px-4 border-r border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white">
-			<div className="md:hidden flex gap-2 items-center mt-4 bg-gray-100 dark:bg-gray-900">
+		<div className="flex flex-col md:w-60 bg-gray-100 text-gray-900 h-full px-4 border-r border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white">
+			<div className="md:hidden flex gap-2 items-center mt-6 bg-gray-100 dark:bg-gray-900">
+				
 				<h1 className={`flex text-xl font-bold ${isOpen ? "md:block": "hidden"} text-center italic`}>Hamro Saman</h1>
 				<button onClick={() => setIsOpen(!isOpen)} className="flex text-2xl p-2">
           {isOpen ? <FaTimes /> : <FaBars />}
         </button>
       </div>
-			<h1 className='text-2xl font-bold hidden md:block mt-4 text-center italic'>Hamro Saman</h1>
+			<h1 className='text-2xl font-bold hidden md:block mt-6 text-center italic'>Hamro Saman</h1>
 			<ul className='flex flex-col mt-5 text-xl'>
 				{data.map((item, index) => (
 					<Link to={item.link} key={index} onClick={() => setIsOpen(false)}>
