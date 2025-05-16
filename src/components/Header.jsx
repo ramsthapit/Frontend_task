@@ -7,7 +7,7 @@ const Header = () => {
   const handleClick = () => { 
     setToggle(!toggle)
     // console.log(toggle)
-  }
+  } 
 
   const handleProfile = () => { 
     // console.log("Profile clicked");

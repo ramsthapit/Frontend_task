@@ -10,7 +10,7 @@ const Loader = () => {
       <h1 className="text-lg font-semibold text-gray-900 dark:text-white">
         Loading...
       </h1>
-    </div>
+    </div> 
   )
 }
 
