@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FaEdit, FaTrash } from 'react-icons/fa'
 import Pagination from '../components/Pagination'
 import Loader from '../components/Loader'
@@ -144,83 +144,83 @@ const Dashboard = () => {
         "url": "https://dummyjson.com/products/category/womens-watches"
     }
 ]
-  const Data = {
-    Products: [
-      {
-        "id": 21,
-        "title": "Cucumber",
-        "category": "groceries",
-        "rating": 4.07,
-        "price": 1.49
-      },
-      {
-        "id": 22,
-        "title": "Dog Food",
-        "category": "groceries",
-        "rating": 4.55,
-        "price": 10.99
-      },
-      {
-        "id": 23,
-        "title": "Eggs",
-        "category": "groceries",
-        "rating": 2.53,
-        "price": 2.99
-      },
-      {
-        "id": 24,
-        "title": "Fish Steak",
-        "category": "groceries",
-        "rating": 3.78,
-        "price": 14.99
-      },
-      {
-        "id": 25,
-        "title": "Green Bell Pepper",
-        "category": "groceries",
-        "rating": 3.25,
-        "price": 1.29
-      },
-      {
-        "id": 26,
-        "title": "Green Chili Pepper",
-        "category": "groceries",
-        "rating": 3.66,
-        "price": 0.99
-      },
-      {
-        "id": 27,
-        "title": "Honey Jar",
-        "category": "groceries",
-        "rating": 3.97,
-        "price": 6.99
-      },
-      {
-        "id": 28,
-        "title": "Ice Cream",
-        "category": "groceries",
-        "rating": 3.39,
-        "price": 5.49
-      },
-      {
-        "id": 29,
-        "title": "Juice",
-        "category": "groceries",
-        "rating": 3.94,
-        "price": 3.99
-      },
-      {
-        "id": 30,
-        "title": "Kiwi",
-        "category": "groceries",
-        "rating": 4.93,
-        "price": 2.49
-      }
-    ],
-    "total": 194,
-    "skip": 20,
-    "limit": 10
-  }
+  // const Data = {
+  //   Products: [
+  //     {
+  //       "id": 21,
+  //       "title": "Cucumber",
+  //       "category": "groceries",
+  //       "rating": 4.07,
+  //       "price": 1.49
+  //     },
+  //     {
+  //       "id": 22,
+  //       "title": "Dog Food",
+  //       "category": "groceries",
+  //       "rating": 4.55,
+  //       "price": 10.99
+  //     },
+  //     {
+  //       "id": 23,
+  //       "title": "Eggs",
+  //       "category": "groceries",
+  //       "rating": 2.53,
+  //       "price": 2.99
+  //     },
+  //     {
+  //       "id": 24,
+  //       "title": "Fish Steak",
+  //       "category": "groceries",
+  //       "rating": 3.78,
+  //       "price": 14.99
+  //     },
+  //     {
+  //       "id": 25,
+  //       "title": "Green Bell Pepper",
+  //       "category": "groceries",
+  //       "rating": 3.25,
+  //       "price": 1.29
+  //     },
+  //     {
+  //       "id": 26,
+  //       "title": "Green Chili Pepper",
+  //       "category": "groceries",
+  //       "rating": 3.66,
+  //       "price": 0.99
+  //     },
+  //     {
+  //       "id": 27,
+  //       "title": "Honey Jar",
+  //       "category": "groceries",
+  //       "rating": 3.97,
+  //       "price": 6.99
+  //     },
+  //     {
+  //       "id": 28,
+  //       "title": "Ice Cream",
+  //       "category": "groceries",
+  //       "rating": 3.39,
+  //       "price": 5.49
+  //     },
+  //     {
+  //       "id": 29,
+  //       "title": "Juice",
+  //       "category": "groceries",
+  //       "rating": 3.94,
+  //       "price": 3.99
+  //     },
+  //     {
+  //       "id": 30,
+  //       "title": "Kiwi",
+  //       "category": "groceries",
+  //       "rating": 4.93,
+  //       "price": 2.49
+  //     }
+  //   ],
+  //   "total": 194,
+  //   "skip": 20,
+  //   "limit": 10
+  // }
 
   useEffect(() => { 
     setLoading(true)
@@ -228,7 +228,7 @@ const Dashboard = () => {
       'https://dummyjson.com/products' :
       'https://dummyjson.com/products/category/' + selectedCategory
     
-    fetch(`${baseUrl}?limit=10&skip=${(currentPage-1)*10}&select=title,category,rating,price`)
+    fetch(`${baseUrl}?limit=10&skip=${(currentPage - 1) * 10}&select=title,category,rating,price`)
       .then(res => res.json())
       .then(data => {
         setProducts(data.products);
@@ -281,7 +281,7 @@ const Dashboard = () => {
                 {products.map((item, index) => (
                   <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">  
                     <td className="pl-6">
-                        {index+1}
+                        {index + 1 + (currentPage - 1) * 10}
                     </td>
                     <th scope="row" className="px-3 py-4 font-medium">
                         {item.title}
