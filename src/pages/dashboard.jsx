@@ -117,60 +117,58 @@ const Dashboard = () => {
   
 
   return (
-    <main className="flex w-full h-full bg-gray-100 p-5"> 
-      <div className="flex flex-col w-full p-4">
-        <h1 className="text-2xl font-bold">Dashboard</h1>
-        <div className="flex flex-col w-full my-5 overflow-auto">
-        {loading && <Loader />}
-          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                  <tr>
-                    {Category.map((item, index) => (
-                      <th key={index} scope="col" className="px-3 py-3 text-gray-500">
-                        {item.name}
-                      </th>))
-                    }
+    <main className="flex flex-col min-h-screen bg-gray-100 p-3 md:p-9"> 
+      <h1 className="text-2xl font-bold">Dashboard</h1>
+      <div className="flex flex-col w-full my-5 overflow-auto">
+      {loading && <Loader />}
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                  {Category.map((item, index) => (
+                    <th key={index} scope="col" className="px-3 py-3 text-gray-500">
+                      {item.name}
+                    </th>))
+                  }
+                </tr>
+              </thead>
+              <tbody>
+                {products.map((item, index) => (
+                  <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">  
+                    <td className="pl-6">
+                        {item.id}
+                    </td>
+                    <th scope="row" className="px-3 py-4 font-medium">
+                        {item.title}
+                    </th>
+                    <td className="px-3 py-4">
+                        {item.category}
+                    </td>
+                    <td className="px-3 py-4">
+                        {item.rating}
+                    </td>
+                    <td className="px-3 py-4">
+                        ${item.price}
+                    </td>
+                    <td className="text-center align-middle px-3 py-4">
+                      <span className="inline-block text-blue-500 cursor-pointer mx-1">
+                        <FaEdit />
+                      </span>
+                      <span className="inline-block text-red-500 cursor-pointer mx-1">
+                        <FaTrash />
+                      </span>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {products.map((item, index) => (
-                    <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">  
-                      <td className="pl-6">
-                          {item.id}
-                      </td>
-                      <th scope="row" className="px-3 py-4 font-medium">
-                          {item.title}
-                      </th>
-                      <td className="px-3 py-4">
-                          {item.category}
-                      </td>
-                      <td className="px-3 py-4">
-                          {item.rating}
-                      </td>
-                      <td className="px-3 py-4">
-                          ${item.price}
-                      </td>
-                      <td className="text-center align-middle px-3 py-4">
-                        <span className="inline-block text-blue-500 cursor-pointer mx-1">
-                          <FaEdit />
-                        </span>
-                        <span className="inline-block text-red-500 cursor-pointer mx-1">
-                          <FaTrash />
-                        </span>
-                      </td>
-                    </tr>
-                  ))}       
-              </tbody>
-          </table>
-          <Pagination
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            totalPage={totalPage}
-            itemNo={itemNo}
-          />
-      </div>
+                ))}       
+            </tbody>
+        </table>
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPage={totalPage}
+          itemNo={itemNo}
+        />
+    </div>
       
-      </div>
     </main>
   )
 }
