@@ -281,7 +281,7 @@ const Dashboard = () => {
                 {products.map((item, index) => (
                   <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">  
                     <td className="pl-6">
-                        {item.id}
+                        {index+1}
                     </td>
                     <th scope="row" className="px-3 py-4 font-medium">
                         {item.title}
