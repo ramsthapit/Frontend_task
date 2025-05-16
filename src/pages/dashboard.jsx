@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { FaEdit, FaTrash } from 'react-icons/fa'
 import Pagination from '../components/Pagination'
+import Loader from '../components/Loader'
 // https://dummyjson.com/docs/products#products-limit_skip
 // https://dummyjson.com/products?limit=10&skip=20&select=title,category,rating,price
 
@@ -120,6 +121,7 @@ const Dashboard = () => {
       <div className="flex flex-col w-full p-4">
         <h1 className="text-2xl font-bold">Dashboard</h1>
         <div className="flex flex-col w-full my-5 overflow-auto">
+        {loading && <Loader />}
           <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
