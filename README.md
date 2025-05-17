@@ -2,6 +2,11 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+### Live Demo
+
+You can visit the site at:
+https://frontend-task-roan.vercel.app/
+
 ## Available Scripts
 
 In the project directory, you can run:
