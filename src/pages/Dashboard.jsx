@@ -3,6 +3,8 @@ import { FaEdit, FaTrash } from 'react-icons/fa'
 import Pagination from '../components/Pagination'
 import Loader from '../components/Loader'
 import ErrorMessage from '../components/ErrorMessage'
+import { useDispatch, useSelector } from 'react-redux'
+import { getCategories } from '../products/productsSlice'
 // https://dummyjson.com/docs/products#products-limit_skip
 // https://dummyjson.com/products?limit=10&skip=20&select=title,category,rating,price
 
@@ -10,11 +12,13 @@ const Dashboard = () => {
   
   const [currentPage, setCurrentPage] = useState(1)
   const [products, setProducts] = useState([])
-  const [loading, setLoading] = useState(true)
+  // const [loading, setLoading] = useState(true)
   const [totalItems, setTotalItems] = useState(0)
   const [selectedCategory, setSelectedCategory] = useState("")
-  const [error, setError] = useState({})
-  const [categories, setCategories] = useState([])
+  // const [error, setError] = useState({})
+  // const [categories, setCategories] = useState([])
+  const dispatch = useDispatch()
+  const { categories, loading, error } = useSelector((state) => state.products)
 
   const TableHeading = [
     { id: 1, name: 'S.N.' },
@@ -226,69 +230,53 @@ const Dashboard = () => {
   // }
 
   useEffect(() => { 
-    setLoading(true)
-    fetch('https://dummyjson.com/products/categories')
-      .then(res => {
-        if (!res.ok) {
-          throw new Error(`HTTP error! Status: ${res.status}`)
-        }
-        return res.json()
-      })
-      .then(data => {
-        setCategories(data);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error("Fetch error:", err)
-        setError({ type: "fetchError", message: "An unexpected error occurred." })
-        setLoading(false);
-      });
-  },[])
+    dispatch(getCategories())
+  },[dispatch])
 
-  useEffect(() => { 
-    setLoading(true)
-    setError(null)
-    const baseUrl = selectedCategory==="" ?
-      'https://dummyjson.com/products' :
-      'https://dummyjson.com/products/category/' + selectedCategory
+  // useEffect(() => { 
+  //   setLoading(true)
+  //   setError(null)
+  //   const baseUrl = selectedCategory==="" ?
+  //     'https://dummyjson.com/products' :
+  //     'https://dummyjson.com/products/category/' + selectedCategory
     
-    fetch(`${baseUrl}?limit=10&skip=${(currentPage - 1) * 10}&select=title,category,rating,price`)
-      .then(res => {
-        if (!res.ok) {
-          throw new Error(`HTTP error! Status: ${res.status}`)
-        }
-        return res.json()
-      })
-      .then(data => {
-        if (data.products.length === 0)
-        {
-          setError({ type: "noData", message: "No products found in this category." })
-        }
-        setProducts(data.products);
-        setTotalItems(data.total);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error("Fetch error:", err)
+  //   fetch(`${baseUrl}?limit=10&skip=${(currentPage - 1) * 10}&select=title,category,rating,price`)
+  //     .then(res => {
+  //       if (!res.ok) {
+  //         throw new Error(`HTTP error! Status: ${res.status}`)
+  //       }
+  //       return res.json()
+  //     })
+  //     .then(data => {
+  //       if (data.products.length === 0)
+  //       {
+  //         setError({ type: "noData", message: "No products found in this category." })
+  //       }
+  //       setProducts(data.products);
+  //       setTotalItems(data.total);
+  //       setLoading(false);
+  //     })
+  //     .catch(err => {
+  //       console.error("Fetch error:", err)
 
-        let errorMsg = "An unexpected error occurred."
+  //       let errorMsg = "An unexpected error occurred."
 
-        if (err.message.includes("Failed to fetch")) {
-          errorMsg = "Network error. Please check your connection."
-        } else if (err.message.includes("404")) {
-          errorMsg = "Requested category or resource was not found."
-        } else if (err.message.includes("500")) {
-          errorMsg = "Server error. Please try again later."
-        }
+  //       if (err.message.includes("Failed to fetch")) {
+  //         errorMsg = "Network error. Please check your connection."
+  //       } else if (err.message.includes("404")) {
+  //         errorMsg = "Requested category or resource was not found."
+  //       } else if (err.message.includes("500")) {
+  //         errorMsg = "Server error. Please try again later."
+  //       }
 
-        setError({ type: "fetchError", message: errorMsg })
-        setProducts([])
-        setTotalItems(0)
-        setLoading(false)
-      });
+  //       setError({ type: "fetchError", message: errorMsg })
+  //       setProducts([])
+  //       setTotalItems(0)
+  //       setLoading(false)
+  //     });
     
     
-  }, [currentPage, selectedCategory])
+  // }, [currentPage, selectedCategory])
   
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value)
